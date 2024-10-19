@@ -31,12 +31,7 @@ const Login = () => {
           {!APP_DISABLE_REGISTRATION && (
             <>
               {t('login.or')} {''}
-              <RedirectUriLink
-                href="/sign-up"
-                className="font-medium text-blue-700 hover:text-blue-800"
-              >
-                {t('login.startFree')}
-              </RedirectUriLink>
+          <div></div>
             </>
           )}
         </p>
