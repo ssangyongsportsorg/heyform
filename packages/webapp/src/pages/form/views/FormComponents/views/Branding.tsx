@@ -7,8 +7,6 @@ export const Branding: FC = () => {
   const { t } = useTranslation()
 
   return (
-    <a className="heyform-branding" href="https://heyform.net/?ref=badge" target="_blank">
-      <LogoIcon /> {t('Made with')} HeyForm
-    </a>
+    <></>
   )
 }
