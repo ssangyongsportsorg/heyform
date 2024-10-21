@@ -25,57 +25,7 @@ const Login = () => {
   return (
     <div>
       <div>
-        <h1 className="mt-6 text-center text-3xl font-bold text-slate-900">{t('login.signIn')}</h1>
-        <p className="mt-2 text-center text-sm text-slate-500">
-          {t('login.logIn')} {''}
-          {!APP_DISABLE_REGISTRATION && (
-            <>
-              {t('login.or')} {''}
-          <div></div>
-            </>
-          )}
-        </p>
-      </div>
-
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white px-4 py-8 shadow sm:rounded-lg sm:px-10">
-          <ThirdPartyLogin headline={t('login.signWith')} subHeadline={t('login.continueWith')} />
-
-          <Form.Custom
-            submitText={t('login.button')}
-            submitOptions={{
-              type: 'primary',
-              block: true
-            }}
-            request={handleFinish}
-          >
-            <Form.Item
-              name="email"
-              label={t('login.Email')}
-              rules={[{ type: 'email', required: true, message: t('login.EmailRequired') }]}
-            >
-              <Input type="email" />
-            </Form.Item>
-
-            <Form.Item
-              name="password"
-              label={
-                <div className="flex items-center justify-between">
-                  <span>{t('login.Password')}</span>
-                  <RedirectUriLink
-                    href="/forgot-password"
-                    className="text-sm font-medium text-blue-700 hover:text-blue-800"
-                  >
-                    {t('login.forgotPassword')}
-                  </RedirectUriLink>
-                </div>
-              }
-              rules={[{ required: true, message: t('login.PasswordRequired') }]}
-            >
-              <Input.Password />
-            </Form.Item>
-          </Form.Custom>
-        </div>
+        
       </div>
     </div>
   )
