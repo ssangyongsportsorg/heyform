@@ -2,111 +2,88 @@ import { useTranslation } from 'react-i18next'
 
 import { RedirectUriLink } from '@/components'
 import { Form, Input } from '@/components/ui'
-import { VERIFY_USER_EMAIL } from '@/consts'
+import {
+  APP_DISABLE_REGISTRATION,
+  DISABLE_LOGIN_WITH_APPLE,
+  DISABLE_LOGIN_WITH_GOOGLE
+} from '@/consts'
 import { AuthService } from '@/service'
 import { useQueryURL, useRouter } from '@/utils'
 
 import { ThirdPartyLogin } from './views/ThirdPartyLogin'
 
-const SignUp = () => {
-  const router = useRouter()
+const Login = () => {
   const { t } = useTranslation()
-  const nextURL = useQueryURL(VERIFY_USER_EMAIL ? '/verify-email' : '/')
+  const router = useRouter()
+  const nextURL = useQueryURL('/')
 
   async function handleFinish(values: any) {
-    await AuthService.signUp(values)
+    await AuthService.login(values.email, values.password)
     router.redirect(nextURL)
   }
 
   return (
     <div>
       <div>
-        <h1 className="mt-6 text-center text-3xl font-bold text-slate-900">
-          {t('auth.signup.signUp')}
-        </h1>
+        <h1 className="mt-6 text-center text-3xl font-bold text-slate-900">{t('login.signIn')}</h1>
+        <p className="mt-2 text-center text-sm text-slate-500">
+          {t('login.logIn')} {''}
+          {!APP_DISABLE_REGISTRATION && (
+            <>
+              {t('login.or')} {''}
+              <RedirectUriLink
+                href="/sign-up"
+                className="font-medium text-blue-700 hover:text-blue-800"
+              >
+                {t('login.startFree')}
+              </RedirectUriLink>
+            </>
+          )}
+        </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white px-4 py-8 shadow sm:rounded-lg sm:px-10">
-          <ThirdPartyLogin
-            headline={t('auth.signup.signWith')}
-            subHeadline={t('auth.signup.continueWith')}
-          />
+          <ThirdPartyLogin headline={t('login.signWith')} subHeadline={t('login.continueWith')} />
 
-          <div className="mt-6">
-            <Form.Custom
-              submitText={t('auth.signup.button')}
-              submitOptions={{
-                type: 'primary',
-                className: 'mt-3',
-                block: true
-              }}
-              request={handleFinish}
+          <Form.Custom
+            submitText={t('login.button')}
+            submitOptions={{
+              type: 'primary',
+              block: true
+            }}
+            request={handleFinish}
+          >
+            <Form.Item
+              name="email"
+              label={t('login.Email')}
+              rules={[{ type: 'email', required: true, message: t('login.EmailRequired') }]}
             >
-              <Form.Item
-                name="name"
-                label={t('auth.signup.Name')}
-                rules={[{ required: true, message: t('auth.signup.nameCant') }]}
-              >
-                <Input />
-              </Form.Item>
+              <Input type="email" />
+            </Form.Item>
 
-              <Form.Item
-                name="email"
-                label={t('auth.signup.Email')}
-                rules={[{ type: 'email', required: true, message: t('auth.signup.invalidEmail') }]}
-              >
-                <Input type="email" />
-              </Form.Item>
-
-              <Form.Item
-                name="password"
-                label={t('login.Password')}
-                rules={[
-                  {
-                    required: true,
-                    pattern:
-                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[!#$%&()*+\-,.\/\\:<=>?@\[\]^_{|}~0-9a-zA-Z]{8,}$/,
-                    message: t('auth.signup.PasswordViolation')
-                  }
-                ]}
-              >
-                <Input.Password />
-              </Form.Item>
-
-              <div className="mt-6">
-                <p className="text-sm text-slate-500">
-                  {t('auth.signup.agreeTo')}{' '}
-                  <a
-                    href="https://docs.heyform.net/terms-conditions"
-                    className="font-medium text-slate-700 underline"
-                    target="_blank"
+            <Form.Item
+              name="password"
+              label={
+                <div className="flex items-center justify-between">
+                  <span>{t('login.Password')}</span>
+                  <RedirectUriLink
+                    href="/forgot-password"
+                    className="text-sm font-medium text-blue-700 hover:text-blue-800"
                   >
-                    {t('auth.signup.terms')}
-                  </a>{' '}
-                  {t('auth.signup.and')}{' '}
-                  <a
-                    href="https://docs.heyform.net/privacy-policy"
-                    className="font-medium text-slate-700 underline"
-                    target="_blank"
-                  >
-                    {t('auth.signup.privacy')}
-                  </a>
-                  .
-                </p>
-              </div>
-            </Form.Custom>
-
-            <div className="mt-6 text-center text-blue-700 hover:text-blue-800 sm:text-sm">
-              <RedirectUriLink href="/login" className="inline-flex items-center">
-                {t('auth.forgotPassword.link')}
-              </RedirectUriLink>
-            </div>
-          </div>
+                    {t('login.forgotPassword')}
+                  </RedirectUriLink>
+                </div>
+              }
+              rules={[{ required: true, message: t('login.PasswordRequired') }]}
+            >
+              <Input.Password />
+            </Form.Item>
+          </Form.Custom>
         </div>
       </div>
     </div>
   )
 }
 
-export default SignUp
+export default Login
