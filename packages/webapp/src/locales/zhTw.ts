@@ -1,6 +1,6 @@
 export default {
   app: {
-    name: 'HeyForm',
+    name: '雙龍體育',
     copy: '複製',
     copied: '已複製'
   },
