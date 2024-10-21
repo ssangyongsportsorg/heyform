@@ -23,9 +23,22 @@ const Login = () => {
   }
 
   return (
-    <div>
-      <div>
-        
+<div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <div className="text-center">
+        <svg
+          className="mx-auto h-24 w-24 text-gray-400 mb-4"
+          viewBox="0 0 100 100"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="50" cy="50" r="45" />
+          <path d="M30 30 L70 70" />
+          <path d="M30 70 L70 30" />
+        </svg>
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">目前沒有任何內容</h1>
+        <p className="text-gray-600">看起來這裡還是空的。稍後再來看看吧!</p>
       </div>
     </div>
   )
